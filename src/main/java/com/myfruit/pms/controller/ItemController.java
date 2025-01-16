@@ -5,6 +5,7 @@ import com.myfruit.pms.mapper.ItemMapper;
 import com.myfruit.pms.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -30,8 +31,10 @@ public class ItemController {
     }
 
     @GetMapping("/{id}")
-    @ResponseBody
-    public ItemDto getItem(@PathVariable("id") int id) {
-        return itemService.getItem(id);
+    public String getItem(@PathVariable("id") int id, Model model) {
+        ItemDto itemDto = itemService.getItem(id);
+        model.addAttribute("item", itemDto);
+
+        return "shop/detail";
     }
 }
