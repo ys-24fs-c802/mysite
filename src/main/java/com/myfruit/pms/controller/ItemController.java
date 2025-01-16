@@ -19,8 +19,9 @@ public class ItemController {
     }
 
     @PostMapping
-    public void createItem(@ModelAttribute ItemDto itemDto) {
-        // @ModelAttribute를 사용하여 ItemDto가 자동으로 바인딩
+    public void createItem(@RequestBody ItemDto itemDto) {
+        // JAON 요청데이터 처리를 위해 @RequestBody을 사용
+        // ItemDto가 자동으로 바인딩
         System.out.println(itemDto.getItem());
         itemMapper.insertItem(itemDto);
     }
