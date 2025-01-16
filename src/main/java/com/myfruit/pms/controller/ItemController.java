@@ -17,8 +17,10 @@ public class ItemController {
     ItemService itemService;
 
     @GetMapping("/{id}")
-    public String getItem(@PathVariable("id") int id) {
-        // TODO 뷰템플릿에 데이터 전달
+    public String getItem(@PathVariable("id") int id, Model model) {
+        ItemDto itemDto = itemService.getItem(id);
+        model.addAttribute("item", itemDto);
+
         return "shop/detail";
     }
 }
