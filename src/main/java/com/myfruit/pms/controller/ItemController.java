@@ -13,9 +13,6 @@ import org.springframework.web.bind.annotation.*;
 public class ItemController {
 
     @Autowired
-    private ItemMapper itemMapper;
-
-    @Autowired
     private ItemService itemService;
 
     @GetMapping("/create")
@@ -27,7 +24,7 @@ public class ItemController {
     @ResponseBody
     public void createItem(@RequestBody ItemDto itemDto) {
         System.out.println(itemDto.getItem());
-        itemMapper.insertItem(itemDto);
+        itemService.createItem(itemDto);
     }
 
     @GetMapping("/{id}")
@@ -37,4 +34,17 @@ public class ItemController {
 
         return "shop/detail";
     }
+
+    // 생성 페이지 GET /items/create
+    // 생성 POST /items
+    // 상세보기 GET /items/{id}
+    // 수정 POST /items/{id}
+    // 삭제 GET /items/{id}/delete
+
+    // 생성 페이지 GET /items/create
+    // 생성 POST /items
+    // 상세보기 GET /items/{id}
+    // 수정 PUT /items/{id}
+    // 삭제 DELETE /items/{id}
+
 }
