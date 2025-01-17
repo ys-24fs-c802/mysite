@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/items")
 public class ItemController {
@@ -29,22 +31,40 @@ public class ItemController {
 
     @GetMapping("/{id}")
     public String getItem(@PathVariable("id") int id, Model model) {
-        ItemDto itemDto = itemService.getItem(id);
-        model.addAttribute("item", itemDto);
-
+        try {
+            ItemDto itemDto = itemService.getItem(id);
+            model.addAttribute("item", itemDto);
+        } catch (IllegalStateException e) {
+            model.addAttribute("message", e.getMessage());
+            return "common/error/404";
+        }
         return "shop/detail";
     }
+
+    @GetMapping
+    public String getItems(Model model) {
+        List<ItemDto> items = itemService.getItems();
+        model.addAttribute("items", items);
+
+        return "shop/list";
+    }
+
+
+
+
 
     // 생성 페이지 GET /items/create
     // 생성 POST /items
     // 상세보기 GET /items/{id}
     // 수정 POST /items/{id}
     // 삭제 GET /items/{id}/delete
+    // 목록 GET /items
 
     // 생성 페이지 GET /items/create
     // 생성 POST /items
     // 상세보기 GET /items/{id}
     // 수정 PUT /items/{id}
     // 삭제 DELETE /items/{id}
+    // 목록 GET /items
 
 }
