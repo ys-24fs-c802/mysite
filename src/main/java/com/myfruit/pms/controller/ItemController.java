@@ -3,6 +3,7 @@ package com.myfruit.pms.controller;
 import com.myfruit.pms.dto.ItemDto;
 import com.myfruit.pms.mapper.ItemMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,11 +20,13 @@ public class ItemController {
     }
 
     @PostMapping
-    public void createItem(@RequestBody ItemDto itemDto) {
+    public ResponseEntity<Void> createItem(@RequestBody ItemDto itemDto) {
         // JAON 요청데이터 처리를 위해 @RequestBody을 사용
         // ItemDto가 자동으로 바인딩
         System.out.println(itemDto.getItem());
         itemMapper.insertItem(itemDto);
+
+        return ResponseEntity.ok().build();
     }
 
 }
