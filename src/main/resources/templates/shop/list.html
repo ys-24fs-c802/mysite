@@ -14,7 +14,7 @@
     <!-- 반복구간 시작 -->
     <tr th:each="item: ${items}">
         <td th:text="${item.id}"></td>
-        <td th:text="${item.item}"></td>
+        <td><a th:href="@{/items/{id}(id=${item.id})}" th:text="${item.item}"></a></td>
     </tr>
     <!-- 반복구간 끝 -->
 </table>
