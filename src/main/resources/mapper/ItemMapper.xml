@@ -11,4 +11,7 @@
         insert into items (name)
         values (#{item});
     </insert>
+    <select id="getItemById" resultType="com.myfruit.pms.dto.ItemDto">
+        SELECT id, name AS item FROM items WHERE id = #{id};
+    </select>
 </mapper>

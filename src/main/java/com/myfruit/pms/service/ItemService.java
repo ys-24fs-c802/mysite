@@ -16,4 +16,11 @@ public class ItemService {
     public List<ItemDto> getItems() {
         return itemMapper.getItems();
     }
+
+    public ItemDto getItem(int id) {
+        return itemMapper.getItemById(id);
+    }
+
+    // 메서드 구문
+    // 접근제어자 리턴타입 메서드이름() {}
 }

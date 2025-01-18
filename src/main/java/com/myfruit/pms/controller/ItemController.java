@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -19,10 +20,18 @@ import java.util.List;
 public class ItemController {
 
     @Autowired
-    private ItemMapper itemMapper;
+    private ItemService itemService;
 
     @Autowired
-    private ItemService itemService;
+    private ItemMapper itemMapper;
+
+    @GetMapping
+    public String getItems(Model model) {
+        List<ItemDto> items = itemService.getItems();
+        model.addAttribute("items", items);
+
+        return "shop/list";
+    }
 
     @GetMapping("/create")
     public String create() {
@@ -39,11 +48,11 @@ public class ItemController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping
-    public String getItems(Model model) {
-        List<ItemDto> items = itemService.getItems();
-        model.addAttribute("items", items);
+    @GetMapping("/{id}")
+    public String getItem(@PathVariable("id") int id, Model model) {
+        ItemDto itemDto = itemService.getItem(id);
+        model.addAttribute("item", itemDto);
 
-        return "shop/list";
+        return "shop/detail";
     }
 }
