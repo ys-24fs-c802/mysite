@@ -71,6 +71,12 @@ public class ItemController {
         itemService.modifyItem(itemDto);
     }
 
+    @GetMapping("/{id}/remove")
+    public String removeItem(@PathVariable("id") int id) {
+        itemService.removeItem(id);
+        return "redirect:/items";
+    }
+
 
     // 생성 페이지 GET /items/create
     // 생성 POST /items
