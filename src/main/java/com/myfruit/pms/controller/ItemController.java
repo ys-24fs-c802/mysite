@@ -49,6 +49,19 @@ public class ItemController {
         return "shop/list";
     }
 
+    // modify나 edit을 사용한다.
+    @GetMapping("/items/{id}/modify")
+    public String getItem2(@PathVariable("id") int id, Model model) {
+        try {
+            ItemDto itemDto = itemService.getItem(id);
+            model.addAttribute("item", itemDto);
+        } catch (IllegalStateException e) {
+            model.addAttribute("message", e.getMessage());
+            return "common/error/404";
+        }
+        return "shop/modify";
+    }
+
 
 
 
@@ -56,8 +69,9 @@ public class ItemController {
     // 생성 페이지 GET /items/create
     // 생성 POST /items
     // 상세보기 GET /items/{id}
+    // 수정페이지 GET /items/{id}/modify
     // 수정 POST /items/{id}
-    // 삭제 GET /items/{id}/delete
+    // 삭제 GET /items/{id}/remove
     // 목록 GET /items
 
     // 생성 페이지 GET /items/create
