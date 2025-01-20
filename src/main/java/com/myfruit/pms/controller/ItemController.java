@@ -66,6 +66,7 @@ public class ItemController {
     @PostMapping("/{id}/modify")
     @ResponseBody
     public void modifyItem(@RequestBody ItemDto itemDto) {
+
         System.out.println(itemDto.getItem());
         itemService.modifyItem(itemDto);
     }

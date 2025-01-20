@@ -16,8 +16,9 @@ document.getElementById('itemForm').addEventListener('submit', function(e) {
         body: JSON.stringify(item)
     }).then(response => {
         if (response.ok) {
-            alert('아이템이 성공적으로 생성되었습니다.');
+            alert('아이템이 성공적으로 변경되었습니다.');
             document.getElementById('itemForm').reset();
+            window.location.href = '/items';
         } else {
             alert('아이템 생성에 실패했습니다.');
         }
