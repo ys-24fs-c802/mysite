@@ -9,9 +9,9 @@
 <main layout:fragment="content">
   <h1>수정하기</h1>
   <form id="itemForm">
-    <input type="hidden" id="item_id" name="id" value="${item.id}">
+    <input type="hidden" id="item_id" name="id" th:value="${item.id}">
     <label for="item_name">아이템(과일): </label>
-    <input type="text" id="item_name" name="item" value="${item.item}">
+    <input type="text" id="item_name" name="item" th:value="${item.item}">
     <button type="submit">아이템 수정</button>
   </form>
 </main>

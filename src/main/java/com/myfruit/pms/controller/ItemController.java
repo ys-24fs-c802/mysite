@@ -50,7 +50,7 @@ public class ItemController {
     }
 
     // modify나 edit을 사용한다.
-    @GetMapping("/items/{id}/modify")
+    @GetMapping("/{id}/modify")
     public String getItem2(@PathVariable("id") int id, Model model) {
         try {
             ItemDto itemDto = itemService.getItem(id);
@@ -63,7 +63,12 @@ public class ItemController {
     }
 
 
-
+    @PostMapping("/{id}/modify")
+    @ResponseBody
+    public void modifyItem(@RequestBody ItemDto itemDto) {
+        System.out.println(itemDto.getItem());
+        itemService.modifyItem(itemDto);
+    }
 
 
     // 생성 페이지 GET /items/create
