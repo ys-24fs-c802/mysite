@@ -14,6 +14,7 @@ public interface ItemMapper {
     void insertItem(ItemDto itemDto); // PK가 생성
     Optional<ItemDto> getItemById(int id);
     List<ItemDto> getItems(@Param("limit") int limit, @Param("offset") int offset);
+    int countTotal();
     void updateItem(ItemDto itemDto); // 내용을 변경
     void deleteItem(int id);
 }

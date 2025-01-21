@@ -14,6 +14,10 @@
         SELECT id, name as item FROM items order by id limit #{limit} offset #{offset};
     </select>
 
+    <select id="countTotal" resultType="Integer">
+        SELECT count(*) FROM items;
+    </select>
+
     <update id="updateItem" parameterType="com.myfruit.pms.dto.ItemDto">
         update items set name = #{item} where id = #{id};
     </update>

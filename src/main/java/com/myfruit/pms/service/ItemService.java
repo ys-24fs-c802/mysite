@@ -1,6 +1,7 @@
 package com.myfruit.pms.service;
 
 import com.myfruit.pms.dto.ItemDto;
+import com.myfruit.pms.dto.PageDto;
 import com.myfruit.pms.mapper.ItemMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,12 +29,18 @@ public class ItemService {
         );
     }
 
-    public List<ItemDto> getItems(int page, int limit) {
+    public PageDto getItems(int page, int limit) {
         int offset = (page - 1) * limit;
         // 갯수가 size인 item목록
         List<ItemDto> items = itemMapper.getItems(limit, offset);
+        // 총갯수
+        int totalElements = itemMapper.countTotal();
+        // 총페이지
+        // 13/5 2.xxx 2, 3 Math.ceil(2.xxx) => 3.0  => 3
+        int totalPages = (int) Math.ceil((double) totalElements / limit);
 
-        return items;
+        PageDto pageDto = new PageDto(page, limit, totalPages, totalElements, items);
+        return pageDto;
     }
 
     public void modifyItem(ItemDto itemDto) {
