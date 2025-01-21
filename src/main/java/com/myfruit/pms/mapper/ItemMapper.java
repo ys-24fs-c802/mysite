@@ -2,6 +2,7 @@ package com.myfruit.pms.mapper;
 
 import com.myfruit.pms.dto.ItemDto;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,7 +13,7 @@ public interface ItemMapper {
     // int insertItem(ItemDto itemDto); // PK가 생성, int는 성공 또는 실패 반환
     void insertItem(ItemDto itemDto); // PK가 생성
     Optional<ItemDto> getItemById(int id);
-    List<ItemDto> getItems();
+    List<ItemDto> getItems(@Param("limit") int limit, @Param("offset") int offset);
     void updateItem(ItemDto itemDto); // 내용을 변경
     void deleteItem(int id);
 }

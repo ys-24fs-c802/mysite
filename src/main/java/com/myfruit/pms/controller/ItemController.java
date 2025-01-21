@@ -41,9 +41,12 @@ public class ItemController {
         return "shop/detail";
     }
 
+    // 요청URL 형식: /items?page=1&limit=10
     @GetMapping
-    public String getItems(Model model) {
-        List<ItemDto> items = itemService.getItems();
+    public String getItems(@RequestParam("page") int page,
+                           @RequestParam("limit") int limit,
+                           Model model) {
+        List<ItemDto> items = itemService.getItems(page, limit);
         model.addAttribute("items", items);
 
         return "shop/list";
