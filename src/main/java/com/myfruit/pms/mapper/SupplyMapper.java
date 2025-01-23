@@ -1,11 +1,13 @@
 package com.myfruit.pms.mapper;
 
 import com.myfruit.pms.dto.SupplyDto;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Optional;
 
+@Mapper
 public interface SupplyMapper {
     void insertSupply(SupplyDto supplyDto); // PK가 생성
     Optional<SupplyDto> getSupplyById(int id);
