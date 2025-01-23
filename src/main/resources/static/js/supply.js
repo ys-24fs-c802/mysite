@@ -15,6 +15,30 @@ function startWithNumber(str) {
     return /^[0-9]/.test(str)
 }
 
+function hyphenDelete(str) {
+    // 좌우 공백 제거
+//    str = str.trim();
+
+    // 하이픈 제거
+    str = str.replace(/-/g, '');
+
+    return str;
+}
+
+// 전화번호(010) 검사
+function validatePhoneNumber(str) {
+    str = hyphenDelete(str);
+    // 전화번호 패턴 검사(01로 시작하는 10-11자리)
+    return /^01[0-9]{8,9}/.test(str);
+}
+
+// 사업자 번호 검사
+function validateBusinessNumber(str) {
+    str = hyphenDelete(str);
+    // 사업자번호 패턴 검사(10자리)
+    return /[0-9]{10}/.test(str);
+}
+
 document.getElementById('name_id').addEventListener('input', function(e) {
     const value = e.target.value;
     const spaceError = document.getElementById('spaceError');
@@ -28,20 +52,41 @@ document.getElementById('name_id').addEventListener('input', function(e) {
     startWithNumberError.style.display = startWithNumber(value) ? 'block' : 'none';
 })
 
+document.getElementById('contact1_id').addEventListener('input', function(e) {
+    const value = e.target.value;
+    const contact1Error = document.getElementById('contact1Error');
+    contact1Error.style.display = !validatePhoneNumber(value) ? 'block' : 'none';
+})
+
+document.getElementById('contact2_id').addEventListener('input', function(e) {
+    const value = e.target.value;
+    const contact2Error = document.getElementById('contact2Error');
+    contact2Error.style.display = !validatePhoneNumber(value) ? 'block' : 'none';
+})
+
+document.getElementById('business_number_id').addEventListener('input', function(e) {
+    const value = e.target.value;
+    const businessNumberError = document.getElementById('businessNumberError');
+    businessNumberError.style.display = !validateBusinessNumber(value) ? 'block' : 'none';
+})
+
 document.getElementById('supplyForm').addEventListener('submit', function(e) {
 
     e.preventDefault();
 
     const supply = {
         name: document.getElementById('name_id').value,
-        contact1: document.getElementById('contact1_id').value,
-        contact2: document.getElementById('contact2_id').value,
-        businessNumber: document.getElementById('business_number_id').value,
+        contact1: hyphenDelete(document.getElementById('contact1_id').value),
+        contact2: hyphenDelete(document.getElementById('contact2_id').value),
+        businessNumber: hyphenDelete(document.getElementById('business_number_id').value),
     }
 
     if (! hasWhiteSpace(supply.name) &&
         ! hasSpecialChar(supply.name) &&
-        ! startWithNumber(supply.name)) {
+        ! startWithNumber(supply.name) &&
+        validatePhoneNumber(supply.contact1) &&
+        validatePhoneNumber(supply.contact2) &&
+        validateBusinessNumber(supply.businessNumber)) {
             alert('서버로 전송한다.');
     } else {
         alert('입력값을 다시 확인해주세요.');
