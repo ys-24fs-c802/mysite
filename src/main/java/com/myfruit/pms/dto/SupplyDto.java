@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class SupplyDto {
     private Integer id;
-    private String item;
+    private String name;
     private String contact1;
     private String contact2;
     private String businessNumber;
