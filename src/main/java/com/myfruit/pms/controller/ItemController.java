@@ -4,12 +4,21 @@ import com.myfruit.pms.dto.ItemDto;
 import com.myfruit.pms.dto.PageDto;
 import com.myfruit.pms.mapper.ItemMapper;
 import com.myfruit.pms.service.ItemService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/items")
@@ -24,10 +33,21 @@ public class ItemController {
     }
 
     @PostMapping
-    @ResponseBody
-    public void createItem(@RequestBody ItemDto itemDto) {
+    public ResponseEntity<?> createItem(@Valid @RequestBody ItemDto itemDto, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            Map<String, List<String>> errorMap = new HashMap<>();
+
+            bindingResult.getFieldErrors().forEach(error -> {
+                String field = error.getField();
+                String message = error.getDefaultMessage();
+                errorMap.computeIfAbsent(field, k -> new ArrayList<>()).add(message);
+            });
+
+            return ResponseEntity.badRequest().body(errorMap);
+        }
         System.out.println(itemDto.getItem());
         itemService.createItem(itemDto);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/{id}")

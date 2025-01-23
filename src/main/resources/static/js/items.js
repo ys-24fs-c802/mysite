@@ -26,6 +26,9 @@ document.getElementById('item_id').addEventListener('input', function(e) {
     spaceError.style.display = hasWhiteSpace(value) ? 'block' : 'none';
     specialCharError.style.display = hasSpecialChar(value) ? 'block' : 'none';
     startWithNumberError.style.display = startWithNumber(value) ? 'block' : 'none';
+
+    // 입력시 서버 오류 메시지는 감추기
+    document.getElementById('itemError').style.display = 'none';
 })
 
 document.getElementById('itemForm').addEventListener('submit', function(e) {
@@ -57,6 +60,15 @@ document.getElementById('itemForm').addEventListener('submit', function(e) {
             document.getElementById('itemForm').reset();
         } else {
             alert('아이템 생성에 실패했습니다.');
+            response.json().then(errorMap => {
+                Object.entries(errorMap).forEach(([field, messages]) => {
+                    const errorEl = document.getElementById(`${field}Error`);
+                    if (errorEl) {
+                        errorEl.style.display = 'block';
+                        errorEl.innerText = messages.join('\n');
+                    }
+                });
+            });
         }
     }).catch(error => {
         console.error('Error:', error);
