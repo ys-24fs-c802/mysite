@@ -4,7 +4,7 @@
     <insert id="insertSupply" parameterType="com.myfruit.pms.dto.SupplyDto"
             useGeneratedKeys="true" keyProperty="id">
         INSERT INTO supply (name, contact1, contact2, business_number)
-        VALUES (#{name}, #{contact1}, #{contact2}, ${businessNumber});
+        VALUES (#{name}, #{contact1}, #{contact2}, #{businessNumber});
     </insert>
 
     <select id="getSupplyById" resultType="com.myfruit.pms.dto.SupplyDto">
