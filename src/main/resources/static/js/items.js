@@ -1,19 +1,4 @@
-// 공백 검사
-function hasWhiteSpace(str) {
-    return /\s/.test(str)
-}
-
-// 특수문자 검사 [!@#$%]
-// ., -, \는 정규시에 사용되는 문자이므로 이스케이프(escape) 처리를 해야 합니다.
-function hasSpecialChar(str) {
-    return /[!@#$%^&*():{}|<>,'~_=\.\-\\`]/.test(str);
-}
-
-// 숫자로 시작하는지 검사
-function startWithNumber(str) {
-    // 1abc, 9abc 시작할 때 검사는 ^를 사용합니다.
-    return /^[0-9]/.test(str)
-}
+import { inputValidator } from "./common.js";
 
 document.getElementById('item_id').addEventListener('input', function(e) {
     const value = e.target.value;
@@ -23,9 +8,9 @@ document.getElementById('item_id').addEventListener('input', function(e) {
 
     //console.log(value, "=>", hasWhiteSpace(value));
 
-    spaceError.style.display = hasWhiteSpace(value) ? 'block' : 'none';
-    specialCharError.style.display = hasSpecialChar(value) ? 'block' : 'none';
-    startWithNumberError.style.display = startWithNumber(value) ? 'block' : 'none';
+    spaceError.style.display = inputValidator.hasWhiteSpace(value) ? 'block' : 'none';
+    specialCharError.style.display = inputValidator.hasSpecialChar(value) ? 'block' : 'none';
+    startWithNumberError.style.display = inputValidator.startWithNumber(value) ? 'block' : 'none';
 })
 
 document.getElementById('itemForm').addEventListener('submit', function(e) {
@@ -36,9 +21,9 @@ document.getElementById('itemForm').addEventListener('submit', function(e) {
         item: document.getElementById('item_id').value,
     }
 
-    if (! hasWhiteSpace(item.item) &&
-        ! hasSpecialChar(item.item) &&
-        ! startWithNumber(item.item)) {
+    if (!inputValidator.hasWhiteSpace(item.item) &&
+        !inputValidator.hasSpecialChar(item.item) &&
+        !inputValidator.startWithNumber(item.item)) {
             alert('서버로 전송한다.');
     } else {
         alert('입력값을 다시 확인해주세요.');
@@ -46,7 +31,7 @@ document.getElementById('itemForm').addEventListener('submit', function(e) {
 
     // fetch(요청주소, 요청내용객체)
     // 성공
-    // 실패
+    // 실
     fetch("/items", {
         method: 'post',
         headers: {'Content-Type': 'application/json'},
