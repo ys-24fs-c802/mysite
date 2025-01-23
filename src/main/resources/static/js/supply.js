@@ -34,6 +34,9 @@ document.getElementById('supplyForm').addEventListener('submit', function(e) {
 
     const supply = {
         name: document.getElementById('name_id').value,
+        contact1: document.getElementById('contact1_id').value,
+        contact2: document.getElementById('contact2_id').value,
+        businessNumber: document.getElementById('business_number_id').value,
     }
 
     if (! hasWhiteSpace(supply.name) &&
