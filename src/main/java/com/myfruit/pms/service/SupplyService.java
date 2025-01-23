@@ -24,13 +24,12 @@ public class SupplyService {
         );
     }
 
-    public PageDto getSupplyList(int page, int limit) {
+    public PageDto<SupplyDto> getSupplyList(int page, int limit) {
         int offset = (page - 1) * limit;
         List<SupplyDto> supplyList = supplyMapper.getSupplyList(limit, offset);
         int totalElements = supplyMapper.countTotal();
-        int totalPages = (int) Math.ceil((double) totalElements / limit);
 
-        PageDto pageDto = new PageDto(page, limit, totalPages, totalElements, supplyList);
+        PageDto<SupplyDto> pageDto = new PageDto(page, limit, totalElements, supplyList);
         return pageDto;
     }
 
