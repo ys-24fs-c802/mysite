@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class ItemDto {
     private Integer id;
-    private String item;
+    private String name;
 }
 
 

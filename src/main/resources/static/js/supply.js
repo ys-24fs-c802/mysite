@@ -53,7 +53,8 @@ const config = {
                 }
             ]
         }
-    }
+    },
+    submitUrl: '/supply',
 }
 
 const formValidator = new FormValidator('supplyForm', config);

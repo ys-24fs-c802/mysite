@@ -23,7 +23,8 @@ const config = {
                 }
             ]
         },
-    }
+    },
+    submitUrl: '/items',
 }
 
 const formValidator = new FormValidator('itemForm', config);
