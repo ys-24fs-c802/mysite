@@ -13,7 +13,7 @@
 
     <select id="getSupplys" resultType="com.myfruit.pms.dto.SupplyDto">
         SELECT name, contact1, contact2, business_number
-        FROM supply order by id limit #{limit} offset #{offset};
+        FROM supply ORDER BY id DESC LIMIT #{limit} OFFSET #{offset};
     </select>
 
     <select id="countTotal" resultType="Integer">
@@ -21,14 +21,14 @@
     </select>
 
     <update id="updateSupply" parameterType="com.myfruit.pms.dto.SupplyDto">
-        update supply set name = #{name},
+        UPDATE supply SET name = #{name},
                             contact1 = #{contact1},
                             contact2 = #{contact2},
                             business_number = #{businessNumber}
-        where id = #{id};
+        WHERE id = #{id};
     </update>
 
     <delete id="deleteSupply">
-        delete from supply where id = #{id};
+        DELETE FROM supply WHERE id = #{id};
     </delete>
 </mapper>
