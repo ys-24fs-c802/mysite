@@ -4,14 +4,19 @@ import com.myfruit.pms.dto.ItemDto;
 import com.myfruit.pms.dto.PageDto;
 import com.myfruit.pms.mapper.ItemMapper;
 import com.myfruit.pms.service.ItemService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/items")
@@ -46,8 +51,8 @@ public class ItemController {
 
             return ResponseEntity.badRequest().body(errorMap);
         }
-        System.out.println(itemDto.getItem());
         itemService.createItem(itemDto);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/{id}")

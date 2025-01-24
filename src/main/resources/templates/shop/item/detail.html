@@ -10,7 +10,7 @@
   <h1>상세보기</h1>
   <ul>
     <li>id: <span th:text="${item.id}"></span></li>
-    <li>name: <span th:text="${item.item}"></span></li>
+    <li>name: <span th:text="${item.name}"></span></li>
     <li><a th:href="@{/items/{id}/modify(id=${item.id})}">수정</a></li>
     <li><a th:href="@{/items/{id}/remove(id=${item.id})}">삭제</a></li>
   </ul>

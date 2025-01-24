@@ -4,7 +4,7 @@ document.getElementById('itemForm').addEventListener('submit', function(e) {
 
     const item = {
         id: document.getElementById('item_id').value,
-        item: document.getElementById('item_name').value,
+        name: document.getElementById('item_name').value,
     }
 
     // fetch(요청주소, 요청내용객체)
