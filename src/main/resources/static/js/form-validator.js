@@ -55,7 +55,7 @@ export class FormValidator {
 
             // 유효성검사 실패시 요청 객체 null로 설정
             if (!isValid) {
-                this.claroFormValues(formValues);
+                this.clearFormValues(formValues);
                 return;
             }
 
@@ -78,16 +78,16 @@ export class FormValidator {
                 }
 
                 // 응답 데이터 처리
-                const result = await response.json();
+                // const result = await response.json();
 
                 // 성공 처리
-                this.handleSuccess(result);
+                this.handleSuccess(this.config.onSuccess.message);
                 
                 // 폼 초기화
                 this.form.reset();
                 this.clearFormValues(formValues);
             } catch (error) {
-                console.error(error);
+                this.handleError(this.config.onError.message)
             } finally {
                 this.hideLoading();
             }
@@ -95,7 +95,7 @@ export class FormValidator {
     }
 
     // 폼 값을 초기화
-    claroFormValues(formValues) {
+    clearFormValues(formValues) {
         Object.values(formValues).forEach(key => { delete formValues[key] });
     }
 
