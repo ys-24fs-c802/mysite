@@ -2,14 +2,11 @@ package com.myfruit.pms.controller;
 
 import com.myfruit.pms.dto.ItemDto;
 import com.myfruit.pms.dto.PageDto;
-import com.myfruit.pms.mapper.ItemMapper;
 import com.myfruit.pms.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/items")
@@ -20,7 +17,7 @@ public class ItemController {
 
     @GetMapping("/create")
     public String create() {
-        return "shop/create-item";
+        return "shop/item/create-item";
     }
 
     @PostMapping
@@ -39,7 +36,7 @@ public class ItemController {
             model.addAttribute("message", e.getMessage());
             return "common/error/404";
         }
-        return "shop/detail";
+        return "shop/item/detail";
     }
 
     // 요청URL 형식: /items?page=1&limit=10
@@ -47,10 +44,10 @@ public class ItemController {
     public String getItems(@RequestParam(name="page", defaultValue = "1") int page,
                            @RequestParam(name="limit", defaultValue = "3") int limit,
                            Model model) {
-        PageDto pageDto = itemService.getItems(page, limit);
+        PageDto<ItemDto> pageDto = itemService.getItems(page, limit);
         model.addAttribute("pageDto", pageDto);
 
-        return "shop/list";
+        return "shop/item/list";
     }
 
     // modify나 edit을 사용한다.
@@ -63,7 +60,7 @@ public class ItemController {
             model.addAttribute("message", e.getMessage());
             return "common/error/404";
         }
-        return "shop/modify";
+        return "shop/item/modify";
     }
 
 
