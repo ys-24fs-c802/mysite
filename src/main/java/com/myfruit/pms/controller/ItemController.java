@@ -4,21 +4,14 @@ import com.myfruit.pms.dto.ItemDto;
 import com.myfruit.pms.dto.PageDto;
 import com.myfruit.pms.mapper.ItemMapper;
 import com.myfruit.pms.service.ItemService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/items")
@@ -29,7 +22,7 @@ public class ItemController {
 
     @GetMapping("/create")
     public String create() {
-        return "shop/create-item";
+        return "shop/item/create-item";
     }
 
     @PostMapping
@@ -55,7 +48,6 @@ public class ItemController {
         }
         System.out.println(itemDto.getItem());
         itemService.createItem(itemDto);
-        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/{id}")
@@ -67,7 +59,7 @@ public class ItemController {
             model.addAttribute("message", e.getMessage());
             return "common/error/404";
         }
-        return "shop/detail";
+        return "shop/item/detail";
     }
 
     // 요청URL 형식: /items?page=1&limit=10
@@ -75,10 +67,10 @@ public class ItemController {
     public String getItems(@RequestParam(name="page", defaultValue = "1") int page,
                            @RequestParam(name="limit", defaultValue = "3") int limit,
                            Model model) {
-        PageDto pageDto = itemService.getItems(page, limit);
+        PageDto<ItemDto> pageDto = itemService.getItems(page, limit);
         model.addAttribute("pageDto", pageDto);
 
-        return "shop/list";
+        return "shop/item/list";
     }
 
     // modify나 edit을 사용한다.
@@ -91,7 +83,7 @@ public class ItemController {
             model.addAttribute("message", e.getMessage());
             return "common/error/404";
         }
-        return "shop/modify";
+        return "shop/item/modify";
     }
 
 
@@ -99,7 +91,7 @@ public class ItemController {
     @ResponseBody
     public void modifyItem(@RequestBody ItemDto itemDto) {
 
-        System.out.println(itemDto.getItem());
+        System.out.println(itemDto.getName());
         itemService.modifyItem(itemDto);
     }
 
