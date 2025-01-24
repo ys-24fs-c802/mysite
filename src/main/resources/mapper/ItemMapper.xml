@@ -3,15 +3,15 @@
 <mapper namespace="com.myfruit.pms.mapper.ItemMapper">
     <insert id="insertItem" parameterType="com.myfruit.pms.dto.ItemDto"
         useGeneratedKeys="true" keyProperty="id">
-        insert into items (name) values (#{item});
+        insert into items (name) values (#{name});
     </insert>
 
     <select id="getItemById" resultType="com.myfruit.pms.dto.ItemDto">
-        SELECT id, name AS item FROM items WHERE id = #{id};
+        SELECT id, name FROM items WHERE id = #{id};
     </select>
 
     <select id="getItems" resultType="com.myfruit.pms.dto.ItemDto">
-        SELECT id, name as item FROM items order by id limit #{limit} offset #{offset};
+        SELECT id, name FROM items order by id limit #{limit} offset #{offset};
     </select>
 
     <select id="countTotal" resultType="Integer">
@@ -19,7 +19,7 @@
     </select>
 
     <update id="updateItem" parameterType="com.myfruit.pms.dto.ItemDto">
-        update items set name = #{item} where id = #{id};
+        update items set name = #{name} where id = #{id};
     </update>
 
     <delete id="deleteItem">

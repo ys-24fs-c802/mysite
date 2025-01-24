@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ItemService {
@@ -39,7 +38,7 @@ public class ItemService {
         // 13/5 2.xxx 2, 3 Math.ceil(2.xxx) => 3.0  => 3
         //int totalPages = (int) Math.ceil((double) totalElements / limit);
 
-        PageDto<ItemDto> pageDto = new PageDto(page, limit, totalElements, items);
+        PageDto<ItemDto> pageDto = new PageDto<ItemDto>(page, limit, totalElements, items);
         return pageDto;
     }
 
