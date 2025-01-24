@@ -1,33 +1,63 @@
 import { inputValidator } from "./common.js";
+import { FormValidator } from "./form-validator.js";
 
-document.getElementById('name_id').addEventListener('input', function(e) {
-    const value = e.target.value;
-    const spaceError = document.getElementById('spaceError');
-    const specialCharError = document.getElementById('specialCharError');
-    const startWithNumberError = document.getElementById('startWithNumberError');
+const config = {
+    fields: {
+        name: {
+            id: 'name_id',
+            rules: [
+                {
+                    validate: inputValidator.hasWhiteSpace,
+                    errorId: 'spaceError',
+                    message: '공백을 포함할 수 없습니다.'
+                },
+                {
+                    validate: inputValidator.hasSpecialChar,
+                    errorId: 'specialCharError',
+                    message: '특수문자를 포함할 수 없습니다.'
+                },
+                {
+                    validate: inputValidator.startWithNumber,
+                    errorId: 'startWithNumberError',
+                    message: '숫자로 시작할 수 없습니다.'
+                }
+            ]
+        },
+        contact1: {
+            id: 'contact1_id',
+            rules: [
+                {
+                    validate: inputValidator.validateLandLineNumber,
+                    errorId: 'contact1Error',
+                    message: '일반전화번호의 입력 형식을 확인해주세요.'
+                }
+            ]
+        },
+        contact2: {
+            id: 'contact2_id',
+            rules: [
+                {
+                    validate: inputValidator.validateMobileNumber,
+                    errorId: 'contact2Error',
+                    message: '휴대전화의 입력 형식을 확인해주세요.'
+                }
+            ]
+        },
+        businessNumber: {
+            id: 'business_number_id',
+            rules: [
+                {
+                    validate: inputValidator.validateBusinessNumber,
+                    errorId: 'businessNumberError',
+                    message: '사업자번호의 입력 형식을 확인해주세요.'
+                }
+            ]
+        }
+    }
+}
 
-    spaceError.style.display = inputValidator.hasWhiteSpace(value) ? 'block' : 'none';
-    specialCharError.style.display = inputValidator.hasSpecialChar(value) ? 'block' : 'none';
-    startWithNumberError.style.display = inputValidator.startWithNumber(value) ? 'block' : 'none';
-})
+const formValidator = new FormValidator('supplyForm', config);
 
-document.getElementById('contact1_id').addEventListener('input', function(e) {
-    const value = e.target.value;
-    const contact1Error = document.getElementById('contact1Error');
-    contact1Error.style.display = !inputValidator.validateLandLineNumber(value) ? 'block' : 'none';
-})
-
-document.getElementById('contact2_id').addEventListener('input', function(e) {
-    const value = e.target.value;
-    const contact2Error = document.getElementById('contact2Error');
-    contact2Error.style.display = !inputValidator.validateMobileNumber(value) ? 'block' : 'none';
-})
-
-document.getElementById('business_number_id').addEventListener('input', function(e) {
-    const value = e.target.value;
-    const businessNumberError = document.getElementById('businessNumberError');
-    businessNumberError.style.display = !inputValidator.validateBusinessNumber(value) ? 'block' : 'none';
-})
 
 document.getElementById('supplyForm').addEventListener('submit', function(e) {
 
