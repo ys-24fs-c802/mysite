@@ -56,6 +56,7 @@ const config = {
     },
     submitUrl: '/supply',
     onSuccess: {
+        redirectUrl: '/supply',
         message: '구입처가 등록되었습니다.'
     },
     onError: {

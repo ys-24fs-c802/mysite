@@ -77,15 +77,15 @@ export class FormValidator {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
 
+                // 폼 초기화
+                this.form.reset();
+                this.clearFormValues(formValues);
+
                 // 응답 데이터 처리
                 // const result = await response.json();
 
                 // 성공 처리
                 this.handleSuccess(this.config.onSuccess.message);
-                
-                // 폼 초기화
-                this.form.reset();
-                this.clearFormValues(formValues);
             } catch (error) {
                 this.handleError(this.config.onError.message)
             } finally {
@@ -111,7 +111,8 @@ export class FormValidator {
 
     // 성공 처리
     handleSuccess(result) {
-        console.log('success:', result);
+        alert('success:', result);
+        window.location.href = this.config.onSuccess.redirectUrl;
     }
 
     // 에러 처리

@@ -26,6 +26,7 @@ const config = {
     },
     submitUrl: '/items',
     onSuccess: {
+        redirectUrl: '/items',
         message: '상품이 등록되었습니다.'
     },
     onError: {
